@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{/general/blocks/general :: head (${title})}">
+    <title>Заголовок будет изменен</title>
+</head>
+
+<body>
+<header th:insert="~{/general/blocks/general :: header}"></header>
+
+<main>
+    <div class="container mt-5">
+        <div>
+            <h1>О нас</h1>
+            <p>Мы – это профессиональная команда дизайнеров, строителей, мебельщиков и мэйкеров других предметов
+                интерьера.</p>
+            <img th:src="@{/images/general/ourTeam.jpg}" src="" alt="Наша команда" id="teamImg" width="792" height="436">
+        </div>
+    </div>
+</main>
+
+<footer th:insert="~{/general/blocks/general :: footer}"></footer>
+
+</body>
+</html>

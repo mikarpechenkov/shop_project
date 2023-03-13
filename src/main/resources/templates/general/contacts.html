@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{/general/blocks/general :: head (${title})}">
+    <title>Заголовок будет изменен</title>
+</head>
+
+<body>
+<header th:insert="~{/general/blocks/general :: header}"></header>
+
+<main>
+    <div class="container mt-5">
+        <div>
+            <h1>Контакты</h1>
+            <div>
+                <h4>Адрес</h4>
+                <h5>Наш <em>головной офис</em> расположен в Москве по адресу: Волоколамское шоссе, д. 23с2</h5>
+                <img th:src="@{/images/general/map.png}" src="" alt="карта">
+                <br><h4>Номер телeфона:</h4>
+                <h5>+79996321047</h5>
+                <br><h4 style="color: greenyellow;font-family: 'Calibri Light',serif; ">Instagram:</h4>
+                <h6>@mikarpechenkov</h6>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:insert="~{/general/blocks/general :: footer}"></footer>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{/general/blocks/general :: head (${title})}">
+    <title>Заголовок будет изменен</title>
+</head>
+
+<body>
+<header th:insert="~{/general/blocks/general :: header}"></header>
+
+<main>
+    <div class="container mt-5">
+        <h1>Фирменные товары и услуги</h1>
+        <h2>Это больше, чем просто магазин</h2>
+        <h3>Все, что вы найдете на нашем сайте, уникально</h3>
+
+        <div id="stock">
+            <h4>Наши товары и услуги</h4>
+            <p>Мы преображаем вашу квартиру или ваш дом, создаем в них единый стиль.
+                <br/>Делаем вашу жизнь более приятной
+                <br/>Мы создаем ее стиль вместе с вами
+                <br/>Кроме того все необходимые элементы интерьера мы производим своими силами:
+            </p>
+            <ol>
+                <li>Столы</li>
+                <li>Шкафы</li>
+                <li>Кровати</li>
+                <li>Пепельницы</li>
+            </ol>
+        </div>
+
+        <div id="examples">
+            <h4>Примеры уже созданных дизайнов</h4>
+            <img th:src="@{/images/general/theFirst.jpg}" src="" alt="interior" width="300" height="200">
+            <img th:src="@{/images/general/theSecond.png}" src="" alt="ashtray" width="208" height="200">
+            <img th:src="@{/images/general/theThird.jpg}" src="" alt="table" height="200" width="224">
+        </div>
+
+        <div id="inspiration">
+            <br><h4>Кем мы вдохновляемся</h4>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/5ov0hl4S3do"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen> К сожалению видео не доступно, но вдохновение остается в наших сердцах
+            </iframe>
+            <p>Алексей и Павел</p>
+        </div>
+    </div>
+</main>
+
+<footer th:insert="~{/general/blocks/general :: footer}"></footer>
+
+</body>
+</html>
