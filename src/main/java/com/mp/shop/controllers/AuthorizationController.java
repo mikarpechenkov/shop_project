@@ -12,4 +12,10 @@ public class AuthorizationController {
         model.addAttribute("title","Вход");
         return "authorization/login";
     }
+
+    @GetMapping("/registration")
+    public String singIn(Model model){
+        model.addAttribute("title", "Регистрация");
+        return "authorization/registration";
+    }
 }

@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="~{/general/blocks/general :: head (${title})}">
     <title>Заголовок будет изменен</title>
-    <link rel="stylesheet" th:href="@{/static/css/authorization/stylesheet.css}">
+    <script type="text/javascript" th:src="@{/js/authorization/registration.js}"></script>
 </head>
 
-<body>
+<body onload="mainFunction()">
 <header th:insert="~{/general/blocks/general :: header}"></header>
 
 <main>
@@ -21,25 +21,35 @@
                 <div class="modal-body p-5 pt-0">
                     <form>
                         <div class="form-floating mb-3">
-                            <input id="emailInput" required type="email" class="form-control rounded-3"
+                            <input type="text" class="form-control rounded-3" id="nameInput"
+                                   placeholder="Mikhail">
+                            <label for="nameInput">Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control rounded-3" id="surnameInput"
+                                   placeholder="Karpechenkov">
+                            <label for="surnameInput">Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control rounded-3" id="emailInput"
                                    placeholder="name@example.com">
                             <label for="emailInput">Email address</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input id="passwordInput" required type="password" class="form-control rounded-3"
+                            <input type="password" class="form-control rounded-3" id="passwordInput"
                                    placeholder="Password">
                             <label for="passwordInput">Password</label>
                         </div>
-                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Log in</button>
+                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Sign up</button>
                         <hr class="my-4">
                     </form>
 
                     <div>
                         <div class="text-center pb-2">
-                            <small class="text-muted ">No account yet?</small>
+                            <small class="text-muted ">Already have an account?</small>
                         </div>
-                        <a th:href="@{/registration}" class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" role="button">Sign
-                            up</a>
+                        <a th:href="@{/login}" class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" role="button">Login
+                            in</a>
                     </div>
 
                 </div>
@@ -50,5 +60,6 @@
 
 <footer th:insert="~{/general/blocks/general :: footer}"></footer>
 
+<!--<script type="text/javascript" th:src="@{/js/authorization/registration.js}"></script>-->
 </body>
 </html>

@@ -1,7 +1,7 @@
 function mainFunction() {
 
     //Валидация пароля
-    let inpPassword = document.getElementById("inputPassword");
+    let inpPassword = document.getElementById("passwordInput");
     if (inpPassword != null) {
         inpPassword.addEventListener('blur', function () {
             let valueInp = inpPassword.value;
@@ -16,8 +16,8 @@ function mainFunction() {
         });
     }
 
-    //Валдидация электронной почты
-    let inpEmail = document.getElementById("inputEmail");
+    //Валидация электронной почты
+    let inpEmail = document.getElementById("emailInput");
     if (inpEmail != null) {
         inpEmail.addEventListener('blur', function () {
             let valueInp = inpEmail.value;

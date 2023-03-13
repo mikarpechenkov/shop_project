@@ -1,7 +1,11 @@
-input.valid{
+input:valid{
     border-color: #ACFAB5;
 }
 
-input.invalid{
+input:invalid{
     border-color: #FF545A;
+}
+
+body{
+    background-color: #FF545A;
 }
