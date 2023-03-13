@@ -1,56 +1,75 @@
-function mainFunction() {
+// Для валидации формы регистрации (через name можно получать объекты и тогда обобщить код и для авторизации, после 7 лабы не забыть
+const form = document.getElementById("registrationForm");
+const emailInput = document.getElementById("emailInput");
+const passwordInput = document.getElementById("passwordInput");
+const nameInput = document.getElementById("nameInput");
+const surnameInput = document.getElementById("surnameInput");
+const inputsNameAndSurname = [nameInput, surnameInput];
 
-    //Валидация пароля
-    let inpPassword = document.getElementById("passwordInput");
-    if (inpPassword != null) {
-        inpPassword.addEventListener('blur', function () {
-            let valueInp = inpPassword.value;
-            let checkPassword = /\w{8,25}/.test(valueInp);
-            if (checkPassword) {
-                inpPassword.classList.remove('invalid');
-                inpPassword.classList.add('valid');
+const regexEmail = new RegExp("@");
+const regexPassword = new RegExp("\\w{8,25}");
+const regexNameSurname = new RegExp("[A-ZА-Я][a-zа-я]{1,30}");
+
+if (emailInput != null)
+    emailInput.addEventListener("input", function () {
+        if (regexEmail.test(emailInput.value)) {
+            if (emailInput.classList.contains('is-invalid'))
+                emailInput.classList.remove('is-invalid');
+            emailInput.classList.add('is-valid');
+        } else {
+            if (emailInput.classList.contains('is-valid'))
+                emailInput.classList.remove('is-valid');
+            emailInput.classList.add('is-invalid');
+        }
+    });
+
+if (passwordInput != null)
+    passwordInput.addEventListener("input", function () {
+        if (regexPassword.test(passwordInput.value)) {
+            if (passwordInput.classList.contains('is-invalid'))
+                passwordInput.classList.remove('is-invalid');
+            passwordInput.classList.add('is-valid');
+        } else {
+            if (passwordInput.classList.contains('is-valid'))
+                passwordInput.classList.remove('is-valid');
+            passwordInput.classList.add('is-invalid');
+        }
+    });
+
+inputsNameAndSurname.forEach(function (el) {
+    if (el != null)
+        el.addEventListener('input', function () {
+            if (regexNameSurname.test(el.value)) {
+                if (el.classList.contains('is-invalid'))
+                    el.classList.remove('is-invalid');
+                el.classList.add('is-valid');
             } else {
-                inpPassword.classList.remove('valid');
-                inpPassword.classList.add('invalid');
+                if (el.classList.contains('is-valid'))
+                    el.classList.remove('is-valid');
+                el.classList.add('is-invalid');
             }
         });
-    }
+});
 
-    //Валидация электронной почты
-    let inpEmail = document.getElementById("emailInput");
-    if (inpEmail != null) {
-        inpEmail.addEventListener('blur', function () {
-            let valueInp = inpEmail.value;
-            let checkEmail = /@/.test(valueInp);
-            if (checkEmail) {
-                inpEmail.classList.remove('invalid');
-                inpEmail.classList.add('valid');
-            } else {
-                inpEmail.classList.remove('valid');
-                inpEmail.classList.add('invalid');
-            }
-        });
-    }
+if (form != null) {
+    form.addEventListener('submit', function (event) {
+        let formIsValid =
+            nameInput.classList.contains('is-valid') &&
+            surnameInput.classList.contains('is-valid') &&
+            emailInput.classList.contains('is-valid') &&
+            passwordInput.classList.contains('is-valid');
 
-
-    //Валидация имени и фамилии
-    let inpName = document.getElementById("inputName");
-    let inpSurname = document.getElementById("inputSurname");
-    if (inpSurname && inpName != null){
-        let inpNameSur = [inpSurname, inpName];
-        let regexNameSurname = new RegExp("[A-ZА-Я][a-zа-я]{1,30}");
-        inpNameSur.forEach(function (el) {
-            el.addEventListener('blur', function () {
-                let valueEl = el.value;
-                let checkNameSurname = regexNameSurname.test(valueEl);
-                if (checkNameSurname) {
-                    el.classList.remove('invalid');
-                    el.classList.add('valid');
-                } else {
-                    el.classList.remove('valid');
-                    el.classList.add('invalid');
-                }
-            });
-        });
-    }
+        console.log(formIsValid);
+        if (formIsValid) {
+            if (form.classList.contains('needs-validation'))
+                form.classList.remove('needs-validation');
+            form.classList.add('was-validation');
+        } else {
+            event.preventDefault();
+            event.stopPropagation();
+            if (form.classList.contains('was-validated'))
+                form.classList.remove('was-validated');
+            form.classList.add('needs-validation');
+        }
+    });
 }

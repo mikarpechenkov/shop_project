@@ -1,8 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="~{/general/blocks/general :: head (${title})}">
+<head th:replace="~{/general/blocks/general :: head (${title}, ~{})}">
     <title>Заголовок будет изменен</title>
-    <link rel="stylesheet" th:href="@{/static/css/authorization/stylesheet.css}">
 </head>
 
 <body>
