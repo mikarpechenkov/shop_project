@@ -19,24 +19,25 @@
                 </div>
 
                 <div class="modal-body p-5 pt-0">
-                    <form id="registrationForm" class="needs-validation" novalidate>
+                    <form id="registrationForm" th:action="@{/authorization/registration}" method="post"
+                          class="needs-validation" novalidate>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control rounded-3" id="nameInput"
+                            <input type="text" class="form-control rounded-3" id="nameInput" name="name"
                                    placeholder="Mikhail">
                             <label for="nameInput">Name</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control rounded-3" id="surnameInput"
+                            <input type="text" class="form-control rounded-3" id="surnameInput" name="surname"
                                    placeholder="Karpechenkov">
                             <label for="surnameInput">Surname</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control rounded-3" id="emailInput"
+                            <input type="email" class="form-control rounded-3" id="emailInput" name="email"
                                    placeholder="name@example.com">
                             <label for="emailInput">Email address</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control rounded-3" id="passwordInput"
+                            <input type="password" class="form-control rounded-3" id="passwordInput" name="password"
                                    placeholder="Password">
                             <label for="passwordInput">Password</label>
                         </div>
