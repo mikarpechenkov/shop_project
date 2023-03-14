@@ -5,7 +5,6 @@ import lombok.*;
 
 @NoArgsConstructor
 @ToString
-@EqualsAndHashCode
 @Entity
 @Table(name = "users")
 public class User {

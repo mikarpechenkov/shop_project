@@ -30,6 +30,7 @@ public class AuthorizationController {
     public String createUser(@RequestParam String name, @RequestParam String surname,
                              @RequestParam String email, @RequestParam String password, Model model) {
         var user = new User(name, surname, email, password);
-        return "";
+        userRepository.save(user);
+        return "redirect:/login";
     }
 }
