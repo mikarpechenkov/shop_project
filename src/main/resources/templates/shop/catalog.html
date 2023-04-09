@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{/general/blocks/general :: head (${title},~{link})}">
+    <title>Заголовок будет изменен</title>
+    <link rel="stylesheet" th:href="@{/shop/catalog.css}">
+</head>
+
+<body>
+<header th:insert="~{/general/blocks/general :: header}"></header>
+
+<main>
+    <div class="container mt-5">
+        <p th:if="${#lists.isEmpty(productList)}">Пока что каталог товаров пуст</p>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" th:unless="${#lists.isEmpty(productList)}">
+
+            <div class="col-lg-3 col-sm-6" th:each="el : ${productList}">
+                <div class="card" style="width: 18rem;">
+                    <img th:src="${el.appearanceLocation}" class="card-img-top" alt="Изображение отсутствует" src="#">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${el.name}">Название товара</h5>
+                        <div class="good-details">
+                            <p class="card-text" th:text="${el.description}">Краткое описание</p>
+                        </div>
+                        <h6 class="price" th:text="${el.price}">Цена</h6>
+                        <button type="button" class="btn btn-primary" name="wish">В корзину</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer th:insert="~{/general/blocks/general :: footer}"></footer>
+
+</body>
+</html>

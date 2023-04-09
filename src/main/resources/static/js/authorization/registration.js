@@ -59,7 +59,6 @@ if (form != null) {
             emailInput.classList.contains('is-valid') &&
             passwordInput.classList.contains('is-valid');
 
-        console.log(formIsValid);
         if (formIsValid) {
             if (form.classList.contains('needs-validation'))
                 form.classList.remove('needs-validation');
