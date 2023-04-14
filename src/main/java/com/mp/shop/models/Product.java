@@ -34,7 +34,7 @@ public class Product {
     @Setter
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
-    private Set<Image> pictures;
+    private Set<Image> pictures=new HashSet<>();
 
     public Product(String name, String description, BigDecimal price, Set<Image> pictures) {
         this.name = name;

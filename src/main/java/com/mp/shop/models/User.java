@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -17,23 +18,35 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Getter
     private Long id;
-    @Getter @Setter @Column(nullable = false)
+    @Getter
+    @Setter
+    @Column(nullable = false)
     private String name;
-    @Getter @Setter @Column(nullable = false)
+    @Getter
+    @Setter
+    @Column(nullable = false)
     private String surname;
-    @Getter @Setter @Column(nullable = false)
-    private String emailAddress;
-    @Getter @Setter @Column(nullable = false)
+    @Getter
+    @Setter
+    @Column(nullable = false, unique = true)
+    private String email;
+    @Getter
+    @Setter
+    @Column(nullable = false)
     private String password;
-    @Getter @Setter
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    @Getter
+    @Setter
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles = new HashSet<>();
 
-    public User(String name, String surname, String emailAddress, String password) {
+    public User(String name, String surname, String email, String password, Set<Role> roles) {
         this.name = name;
         this.surname = surname;
-        this.emailAddress = emailAddress;
+        this.email = email;
         this.password = password;
+        this.roles = new HashSet<>(roles);
     }
 
     @Override
@@ -43,7 +56,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return getEmailAddress();
+        return getEmail();
     }
 
     @Override
