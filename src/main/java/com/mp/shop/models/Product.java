@@ -17,6 +17,7 @@ import java.util.Set;
 public class Product {
     @Id
     @GeneratedValue
+    @Getter
     private Long id;
     @Getter
     @Setter
@@ -31,8 +32,8 @@ public class Product {
     private BigDecimal price;
     @Getter
     @Setter
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
     private Set<Image> pictures;
 
     public Product(String name, String description, BigDecimal price, Set<Image> pictures) {
@@ -40,5 +41,13 @@ public class Product {
         this.description = description;
         this.price = price;
         this.pictures = new HashSet<>(pictures);
+    }
+
+    public Product(String name, String description, BigDecimal price, Image image) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.pictures = new HashSet<>();
+        pictures.add(image);
     }
 }

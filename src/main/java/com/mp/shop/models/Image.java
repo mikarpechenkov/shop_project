@@ -13,18 +13,20 @@ import lombok.ToString;
 public class Image {
     @Id
     @GeneratedValue
+    @Getter
     private Long id;
-    @Getter @Setter
+    @Getter
+    @Setter
     @Column(nullable = false)
     private String name;
 
-    @Lob
-    @Getter @Setter
+    @Getter
+    @Setter
     @Column(nullable = false)
-    private byte[] content;
+    private String location;
 
-    public Image(String name, byte[] content) {
+    public Image(String name, String location) {
         this.name = name;
-        this.content = content;
+        this.location = location;
     }
 }

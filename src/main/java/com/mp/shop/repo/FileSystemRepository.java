@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 @Repository
-class FileSystemRepository {
+public class FileSystemRepository {
     @Getter @Setter
     private String RESOURCES_DIR = Objects.requireNonNull(FileSystemRepository.class.getResource("/"))
             .getPath();
