@@ -39,6 +39,7 @@ public class User implements UserDetails {
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Set<Role> roles = new HashSet<>();
 
     public User(String name, String surname, String email, String password, Set<Role> roles) {
@@ -46,7 +47,14 @@ public class User implements UserDetails {
         this.surname = surname;
         this.email = email;
         this.password = password;
-        this.roles = new HashSet<>(roles);
+        this.roles.addAll(roles);
+    }
+
+    public User(String name, String surname, String email, String password) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
     }
 
     @Override

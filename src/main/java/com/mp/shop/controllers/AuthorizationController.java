@@ -1,9 +1,9 @@
 package com.mp.shop.controllers;
 
 import com.mp.shop.models.User;
-import com.mp.shop.repo.UserRepository;
 import com.mp.shop.services.TelegramSender;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mp.shop.services.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +13,9 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Controller
+@RequiredArgsConstructor
 public class AuthorizationController {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
+    private UserService userService; //Это не забыть заменить на сервис
     private TelegramSender bot;
 
     @GetMapping("/login")
@@ -35,7 +34,7 @@ public class AuthorizationController {
     public String createUser(@RequestParam String name, @RequestParam String surname,
                              @RequestParam String email, @RequestParam String password, Model model) {
         var user = new User(name, surname, email, password,null);
-        userRepository.save(user);
+        userService.createUser(user);
 
         //Генерируем и отправляем сообщение боту с данными пользователя
         var data = "Имя: " + name + "\n" +

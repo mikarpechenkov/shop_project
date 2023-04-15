@@ -34,20 +34,18 @@ public class Product {
     @Setter
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
-    private Set<Image> pictures=new HashSet<>();
+    private Set<Image> pictures = new HashSet<>();
 
     public Product(String name, String description, BigDecimal price, Set<Image> pictures) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.pictures = new HashSet<>(pictures);
+        this.pictures.addAll(pictures);
     }
 
-    public Product(String name, String description, BigDecimal price, Image image) {
+    public Product(String name, String description, BigDecimal price) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.pictures = new HashSet<>();
-        pictures.add(image);
     }
 }
