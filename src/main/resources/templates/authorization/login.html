@@ -18,14 +18,14 @@
                 </div>
 
                 <div class="modal-body p-5 pt-0">
-                    <form>
+                    <form th:action="@{/login}" method="post">
                         <div class="form-floating mb-3">
-                            <input id="emailInput" required type="email" class="form-control rounded-3"
+                            <input id="emailInput" required type="email" class="form-control rounded-3" name="email"
                                    placeholder="name@example.com">
                             <label for="emailInput">Email address</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input id="passwordInput" required type="password" class="form-control rounded-3"
+                            <input id="passwordInput" required type="password" class="form-control rounded-3" name="password"
                                    placeholder="Password">
                             <label for="passwordInput">Password</label>
                         </div>

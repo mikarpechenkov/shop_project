@@ -4,6 +4,7 @@ import com.mp.shop.models.Role;
 import com.mp.shop.models.User;
 import com.mp.shop.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
