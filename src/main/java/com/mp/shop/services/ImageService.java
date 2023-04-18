@@ -7,12 +7,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ImageLocationService {
+public class ImageService {
     private final ImageRepository imageDbRepository;
 
     public boolean save(Image image){
         imageDbRepository.save(image);
         return true;
+    }
+
+    public boolean existByID(Long id){
+        return imageDbRepository.existsById(id);
     }
 
 }
