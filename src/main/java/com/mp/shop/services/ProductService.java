@@ -3,6 +3,7 @@ package com.mp.shop.services;
 import com.mp.shop.models.Product;
 import com.mp.shop.repo.ImageRepository;
 import com.mp.shop.repo.ProductRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +11,11 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private ImageLocationService imageLocationService;
-    @Autowired
-    private ImageRepository imageRepository;
+    private final ProductRepository productRepository;
+    private final ImageLocationService imageLocationService;
+    private final ImageRepository imageRepository;
 
     //Сохранение товара без изображения
     public Long save(String name, String description, BigDecimal price) {

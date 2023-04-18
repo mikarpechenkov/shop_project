@@ -25,6 +25,7 @@ public class Product {
     private String name;
     @Getter
     @Setter
+    @Lob
     @Column(nullable = false)
     private String description;
     @Getter
@@ -32,8 +33,13 @@ public class Product {
     private BigDecimal price;
     @Getter
     @Setter
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            orphanRemoval = true)
+    @JoinTable(
+            name = "product_image",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "image_id"))
     private Set<Image> pictures = new HashSet<>();
 
     public Product(String name, String description, BigDecimal price, Set<Image> pictures) {

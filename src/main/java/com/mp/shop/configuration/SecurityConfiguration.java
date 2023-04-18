@@ -32,7 +32,9 @@ public class SecurityConfiguration {
         http
                 .authorizeHttpRequests(requests ->
                         requests
-                                .requestMatchers("/registration", "/", "/about", "/contacts", "/shop/catalog")
+                                .requestMatchers("/about")
+                                .hasRole("ADMIN")
+                                .requestMatchers("/registration", "/", "/contacts", "/shop/catalog")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated())

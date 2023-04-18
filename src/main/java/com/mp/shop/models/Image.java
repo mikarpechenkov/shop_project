@@ -22,11 +22,12 @@ public class Image {
 
     @Getter
     @Setter
+    @Lob
     @Column(nullable = false)
-    private String location;
+    private byte[] content;
 
-    public Image(String name, String location) {
+    public Image(String name, byte[] content) {
         this.name = name;
-        this.location = location;
+        this.content=content;
     }
 }
