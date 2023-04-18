@@ -42,7 +42,11 @@ public class SecurityConfiguration {
                                 .defaultSuccessUrl("/")
                                 .failureUrl("/login?errors=true")
                                 .permitAll())
-                .logout(LogoutConfigurer::permitAll);
+                .logout(logout->
+                        logout
+                                .logoutUrl("/logout")
+                                .logoutSuccessUrl("/")
+                                .permitAll());
 
         return http.build();
     }
