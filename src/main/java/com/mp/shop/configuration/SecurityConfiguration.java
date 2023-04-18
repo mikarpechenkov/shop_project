@@ -1,14 +1,16 @@
 package com.mp.shop.configuration;
 
 
-import com.mp.shop.services.UserService;
+import com.mp.shop.services.CustomUserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,7 +20,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
-    private final UserService userService;
+    private final CustomUserDetailService userDetailService;
 
     @Bean
     public static PasswordEncoder passwordEncoder() {
@@ -28,23 +30,43 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/", "/about", "/contacts", "/shop/catalog").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .formLogin((form) -> form
-                        .loginPage("/login")
-                        .permitAll()
-                )
+                .authorizeHttpRequests(requests ->
+                        requests
+                                .requestMatchers("/registration", "/", "/about", "/contacts", "/shop/catalog")
+                                .permitAll()
+                                .anyRequest()
+                                .authenticated())
+                .formLogin((form) ->
+                        form
+                                .loginPage("/login")
+                                .defaultSuccessUrl("/")
+                                .failureUrl("/login?errors=true")
+                                .permitAll())
                 .logout(LogoutConfigurer::permitAll);
 
         return http.build();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
-            throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
+    public WebSecurityCustomizer webSecurityConfiguration() {
+        return (web) -> web.ignoring()
+                .requestMatchers("/css/**",
+                        "/images/**",
+                        "/js/**");
+    }
+
+    // I injected the custom UserDetailService in the authentication provider.
+    @Bean
+    public AuthenticationProvider authProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
+
+    //Регистрирую провайдера авторизации
+    public void authenticationManager(AuthenticationManagerBuilder builder) throws Exception {
+        builder.authenticationProvider(authProvider());
     }
 
 }
