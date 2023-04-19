@@ -33,9 +33,9 @@
                         <!--Описание-->
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Описание товара</span>
+                                <span class="input-group-text" style="height: 120px">Описание товара</span>
                             </div>
-                            <textarea class="form-control" style="height: 100px" id="descriptionInput"
+                            <textarea class="form-control" style="height: 120px; resize: none" id="descriptionInput"
                                       name="description"
                                       placeholder="Самый лучший чай"></textarea>
                         </div>
@@ -54,14 +54,9 @@
 
                         <!--Изображения-->
                         <div class="input-group mb-3">
-                            <!--                            <div class="input-group-prepend">-->
-                            <!--                                <span class="input-group-text">Изображения</span>-->
-                            <!--                            </div>-->
-                            <div class="custom-file">
-                                <input type="file" accept="image/*" class="custom-file-input" id="imagesInput"
-                                       name="images" placeholder="Изображение.jpeg" multiple>
-                                <label class="custom-file-label" for="imagesInput">Выберете изображения</label>
-                            </div>
+                            <label class="input-group-text" for="imagesInput">Изображения</label>
+                            <input class="form-control" type="file" accept="image/*" id="imagesInput" name="images"
+                                   placeholder="Изображение.jpeg" multiple>
                         </div>
 
                         <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Добавить товар
