@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.hibernate.Hibernate;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -24,6 +26,13 @@ public class ShopController {
     @GetMapping("/shop/catalog")
     public String shopCatalog(Model model) {
         model.addAttribute("title", "Каталог");
+        List<Product> productList = productService.findAll();
+
+        for (Product product : productList)
+            product.getPictures().size();
+
+
+        model.addAttribute("productList", productList);
         return "/shop/catalog";
     }
 

@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.JdbcTypeCode;
+
+import java.sql.Types;
 
 @NoArgsConstructor
 @ToString
@@ -23,6 +26,7 @@ public class Image {
     @Getter
     @Setter
     @Lob
+    @JdbcTypeCode(Types.LONGVARBINARY)
     @Column(nullable = false)
     private byte[] content;
 

@@ -5,6 +5,8 @@ import com.mp.shop.repo.ImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class ImageService {
@@ -17,6 +19,10 @@ public class ImageService {
 
     public boolean existByID(Long id){
         return imageDbRepository.existsById(id);
+    }
+
+    public Optional<Image> findByID(Long id){
+        return imageDbRepository.findById(id);
     }
 
 }
