@@ -34,7 +34,7 @@ public class SecurityConfiguration {
                         requests
                                 .requestMatchers("/about")
                                 .hasRole("ADMIN")
-                                .requestMatchers("/registration", "/", "/contacts", "/shop/catalog")
+                                .requestMatchers("/registration", "/", "/contacts", "/image/display/*")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated())
@@ -44,7 +44,7 @@ public class SecurityConfiguration {
                                 .defaultSuccessUrl("/")
                                 .failureUrl("/login?errors=true")
                                 .permitAll())
-                .logout(logout->
+                .logout(logout ->
                         logout
                                 .logoutUrl("/logout")
                                 .logoutSuccessUrl("/")

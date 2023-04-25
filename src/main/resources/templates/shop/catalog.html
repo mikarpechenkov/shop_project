@@ -1,8 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="~{/general/blocks/general :: head (${title},~{::link})}">
+<head th:replace="~{/general/blocks/general :: head (${title},~{::link}, ~{::script})}">
     <title>Заголовок будет изменен</title>
     <link rel="stylesheet" th:href="@{/css/shop/catalog.css}">
+
+    <!--jQuery CDN-->
+    <script
+            src="https://code.jquery.com/jquery-3.6.4.js"
+            integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{/js/shop/catalog.js}"></script>
 </head>
 
 <body>
@@ -16,11 +23,12 @@
             <div class="col-lg-3 col-sm-6" th:each="el, productIter : ${productList}">
                 <div class="card" style="width: 18rem;">
 
-                    <div th:id="${'carouselControls'+productIter.index}" class="carousel slide" data-bs-ride="carousel">
+                    <div th:id="${'carouselControls'+ productIter.index}" class="carousel slide"
+                         data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <th:block th:each="image, imageIter: ${el.pictures}">
                                 <div th:if="${imageIter.index==0}" class="carousel-item active">
-                                    <img th:src="@{'/image/display/'+ ${image.id}}" class="d-block card-img-top"
+                                    <img th:src="@{'/image/display/'+ ${image.id}}" class="d-block card-img-top w-1"
                                          alt="Изображение отсутствует" src="#">
                                 </div>
                                 <div th:unless="${imageIter.index==0}" class="carousel-item">
@@ -50,7 +58,11 @@
                             <p class="card-text" th:text="${el.description}">Краткое описание</p>
                         </div>
                         <h6 class="price" th:text="${el.price}">Цена</h6>
-                        <button type="button" class="btn btn-primary" name="wish">В корзину</button>
+                        <form name="sendingToCartForm" method="post">
+                            <input type="hidden" name="productId" th:value="${el.id}"/>
+                            <input type="hidden" name="presenceInCart" value="false"/>
+                            <button type="submit" class="btn btn-primary" name="wish">В корзину</button>
+                        </form>
                     </div>
                 </div>
             </div>

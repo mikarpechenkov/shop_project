@@ -36,10 +36,10 @@ public class GeneralController {
         return "general/contacts";
     }
 
-    @GetMapping("/image/display/{imageID}")
+    @GetMapping("/image/display/{imageId}")
     @ResponseBody
-    public void displayImage(@PathVariable Long imageID, HttpServletResponse response) throws IOException {
-        Optional<Image>  image=imageService.findByID(imageID);
+    public void displayImage(@PathVariable Long imageId, HttpServletResponse response) throws IOException {
+        Optional<Image>  image=imageService.findByID(imageId);
 
         response.setContentType("image/jpeg");
         response.setContentType("image/jpg");
