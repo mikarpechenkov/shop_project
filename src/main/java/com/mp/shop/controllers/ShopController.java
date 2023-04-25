@@ -26,7 +26,6 @@ import java.util.Set;
 public class ShopController {
     private final ProductService productService;
     private final CartItemService cartItemService;
-    private final CustomUserDetailService userDetailService;
 
     @GetMapping("/shop/catalog")
     public String shopCatalog(Model model) {

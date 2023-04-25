@@ -1,6 +1,6 @@
 $(function () {
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
+    const token = $("meta[name='_csrf']").attr("content");
+    const header = $("meta[name='_csrf_header']").attr("content");
     $(document).ajaxSend(function(e, xhr, options) {
         xhr.setRequestHeader(header, token);
     });
@@ -48,11 +48,12 @@ function updateCartCounter(quantity) {
 
 function sendPurchasedProductData(productId, quantity) {
 
+
     const jsonData = JSON.stringify({
         productId: productId,
         quantity: quantity
     });
-
+    console.log(jsonData);
     $.ajax({
         url: '/shop/refreshing_cart',
         cache: 'false',

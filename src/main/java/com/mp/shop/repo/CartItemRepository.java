@@ -1,7 +1,11 @@
 package com.mp.shop.repo;
 
 import com.mp.shop.models.CartItem;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,6 +16,10 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 
     Long countCartItemByUserId(Long userId);
 
-    void deleteByUserIdAndProductId(Long userId, Long productId);
+    Long countCartItemByUserIdAndProductId(Long userId, Long productId);
 
+    @Transactional
+    @Modifying
+    @Query("delete from CartItem c where c.product.id=:productId and c.user.id=:userId")
+    void deleteByUserIdAndProductId(@Param("productId") Long productId, @Param("userId") Long userId);
 }

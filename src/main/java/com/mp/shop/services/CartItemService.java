@@ -21,9 +21,11 @@ public class CartItemService {
     }
 
     public boolean deleteProductByUser(Long productId, Long userId) {
-        cartItemRepository.deleteByUserIdAndProductId(userId, productId);
+        cartItemRepository.deleteByUserIdAndProductId(productId, userId);
         return true;
     }
+
+
 
     public boolean save(CartItem item) {
         cartItemRepository.save(item);
