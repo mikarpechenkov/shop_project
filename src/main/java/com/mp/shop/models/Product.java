@@ -1,38 +1,31 @@
 package com.mp.shop.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+@Data
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue
-    @Getter
+    @Setter(AccessLevel.NONE)
     private Long id;
-    @Getter
-    @Setter
+
     @Column(nullable = false)
     private String name;
-    @Getter
-    @Setter
+
     @Lob
     @Column(nullable = false)
     private String description;
-    @Getter
-    @Setter
+
     private BigDecimal price;
-    @Getter
-    @Setter
+
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             orphanRemoval = true)

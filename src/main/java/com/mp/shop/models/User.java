@@ -9,33 +9,28 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+@Data
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Getter
+    @Setter(AccessLevel.NONE)
     private Long id;
-    @Getter
-    @Setter
+
     @Column(nullable = false)
     private String name;
-    @Getter
-    @Setter
+
     @Column(nullable = false)
     private String surname;
-    @Getter
-    @Setter
+
     @Column(nullable = false, unique = true)
     private String email;
-    @Getter
-    @Setter
+
     @Column(nullable = false)
     private String password;
-    @Getter
-    @Setter
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)

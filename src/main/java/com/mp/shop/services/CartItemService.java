@@ -13,19 +13,17 @@ public class CartItemService {
     private final CartItemRepository cartItemRepository;
 
     public List<CartItem> findByUser(Long userId) {
-        return cartItemRepository.findByUserId(userId);
+        return cartItemRepository.findById_UserId(userId);
     }
 
     public Long countByUser(Long userId) {
-        return cartItemRepository.countCartItemByUserId(userId);
+        return cartItemRepository.countCartItemById_UserId(userId);
     }
 
     public boolean deleteProductByUser(Long productId, Long userId) {
         cartItemRepository.deleteByUserIdAndProductId(productId, userId);
         return true;
     }
-
-
 
     public boolean save(CartItem item) {
         cartItemRepository.save(item);

@@ -1,36 +1,41 @@
 package com.mp.shop.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
+import java.io.Serializable;
+
+@Data
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "cart_items")
 public class CartItem {
-    @Id
-    @GeneratedValue
-    @Getter
-    private Long id;
-    @Getter
-    @Setter
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Embeddable
+    public static class PrimaryKey implements Serializable {
+        private static final long serialVersionUID = 1234567L;
+        @Column(name="product_id", nullable = false)
+        private Long productId;
+        @Column(name="user_id", nullable = false)
+        private Long userId;
+    }
+    @EmbeddedId
+    private PrimaryKey id;
     @ManyToOne
-    @JoinColumn(name="product_id", nullable = false)
+    @MapsId("productId")
     private Product product;
-    @Getter
-    @Setter
+
     @ManyToOne
-    @JoinColumn(name="user_id", nullable = false)
+    @MapsId("userId")
     private User user;
-    @Getter
-    @Setter
+
     @Column(nullable = false,name = "quantity")
     private int quantity;
 
     public CartItem(Product product, User user, int quantity) {
+        this.id = new PrimaryKey(product.getId(),user.getId());
         this.product = product;
         this.user = user;
         this.quantity = quantity;

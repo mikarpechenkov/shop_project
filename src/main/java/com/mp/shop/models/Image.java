@@ -1,30 +1,32 @@
 package com.mp.shop.models;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Column;
+import jakarta.persistence.Lob;
+import lombok.AccessLevel;
 import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 
 import java.sql.Types;
 
+@Data
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "images")
 public class Image {
     @Id
     @GeneratedValue
-    @Getter
+    @Setter(AccessLevel.NONE)
     private Long id;
-    @Getter
-    @Setter
+
     @Column(nullable = false)
     private String name;
 
-    @Getter
-    @Setter
     @Lob
     @JdbcTypeCode(Types.LONGVARBINARY)
     @Column(nullable = false)
@@ -32,6 +34,6 @@ public class Image {
 
     public Image(String name, byte[] content) {
         this.name = name;
-        this.content=content;
+        this.content = content;
     }
 }
