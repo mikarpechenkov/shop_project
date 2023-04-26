@@ -13,20 +13,20 @@
 </head>
 
 <body>
-<header th:insert="~{/general/blocks/general :: header}"></header>
+<header th:insert="~{/general/blocks/shop_blocks :: header(${numberOfItemsInCart})}"></header>
 
 <main>
     <div class="container mt-5">
-        <p th:if="${#lists.isEmpty(productList)}">Пока что каталог товаров пуст</p>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" th:unless="${#lists.isEmpty(productList)}">
+        <p th:if="${#lists.isEmpty(catalogItems)}">Пока что каталог товаров пуст</p>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" th:unless="${#lists.isEmpty(catalogItems)}">
 
-            <div class="col-lg-3 col-sm-6" th:each="el, productIter : ${productList}">
+            <div class="col-lg-3 col-sm-6" th:each="el, productIter : ${catalogItems}">
                 <div class="card" style="width: 18rem;">
 
                     <div th:id="${'carouselControls'+ productIter.index}" class="carousel slide"
                          data-bs-ride="carousel">
                         <div class="carousel-inner">
-                            <th:block th:each="image, imageIter: ${el.pictures}">
+                            <th:block th:each="image, imageIter: ${el.product().getPictures()}">
                                 <div th:if="${imageIter.index==0}" class="carousel-item active">
                                     <img th:src="@{'/image/display/'+ ${image.id}}" class="d-block card-img-top w-1"
                                          alt="Изображение отсутствует" src="#">
@@ -37,7 +37,7 @@
                                 </div>
                             </th:block>
                         </div>
-                        <th:block th:if="${el.pictures.size()>1}">
+                        <th:block th:if="${el.product().getPictures().size() > 1}">
                             <button class="carousel-control-prev"
                                     th:data-bs-target="${'#carouselControls'+ productIter.index}" type="button"
                                     data-bs-slide="next">
@@ -53,15 +53,15 @@
                     </div>
 
                     <div class="card-body">
-                        <h5 class="card-title" th:text="${el.name}">Название товара</h5>
+                        <h5 class="card-title" th:text="${el.product().name}">Название товара</h5>
                         <div class="good-details">
-                            <p class="card-text" th:text="${el.description}">Краткое описание</p>
+                            <p class="card-text" th:text="${el.product().description}">Краткое описание</p>
                         </div>
-                        <h6 class="price" th:text="${el.price}">Цена</h6>
+                        <h6 class="price" th:text="${el.product().price}">Цена</h6>
                         <form name="sendingToCartForm" method="post">
-                            <input type="hidden" name="productId" th:value="${el.id}"/>
-                            <input type="hidden" name="presenceInCart" value="false"/>
-                            <button type="submit" class="btn btn-primary" name="wish">В корзину</button>
+                            <input type="hidden" name="productId" th:value="${el.product().id}"/>
+                            <input type="hidden" name="presenceInCart" th:value="${el.presenceInCart()}"/>
+                            <button type="submit" class="btn" name="wish">В корзину</button>
                         </form>
                     </div>
                 </div>

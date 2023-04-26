@@ -18,8 +18,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,14 +30,29 @@ public class ShopController {
     private final CartItemService cartItemService;
 
     @GetMapping("/shop/catalog")
-    public String shopCatalog(Model model) {
-        model.addAttribute("title", "Каталог");
+    public String shopCatalog(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        User currentUser = (User) userDetails;
+
         List<Product> productList = productService.findAll();
 
-        for (Product product : productList)
-            product.getPictures().size();
+        //Находим id, товаров, которые уже находятся в корзине
+        List<Long> addingProductIds = cartItemService.findByUser(currentUser.getId())
+                .stream()
+                .map(CartItem::getProduct)
+                .map(Product::getId)
+                .toList();
 
-        model.addAttribute("productList", productList);
+        List<CatalogItemDTO> catalogItems = new LinkedList<>();
+
+        productList.forEach(product ->
+                catalogItems.add(new CatalogItemDTO(product, addingProductIds.contains(product.getId())))
+        );
+
+        int numberOfItemsInCart = cartItemService.countByUser(currentUser.getId()).intValue();
+
+        model.addAttribute("title", "Каталог");
+        model.addAttribute("catalogItems", catalogItems);
+        model.addAttribute("numberOfItemsInCart", numberOfItemsInCart);
         return "/shop/catalog";
     }
 
