@@ -21,19 +21,19 @@ public class GeneralController {
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("title", "Главная страница");
-        return "general/index";
+        return "/general/index";
     }
 
     @GetMapping("/about")
     public String about(Model model) {
         model.addAttribute("title", "О нас");
-        return "general/about";
+        return "/general/about";
     }
 
     @GetMapping("/contacts")
     public String contacts(Model model) {
         model.addAttribute("title", "Контакты");
-        return "general/contacts";
+        return "/general/contacts";
     }
 
     @GetMapping("/image/display/{imageId}")
